@@ -1,0 +1,72 @@
+Q1. What is the difference between Cookie / Local Storage / Session Storage?
+A1. 
+
+Local Storage
+-Stores data with no expiration date.
+-It gets cleared only through JavaScript, or clearing the Browser cache / Locally Stored Data
+-Storage limit is the maximum amongst the three
+
+Session Storage
+-The sessionStorage object stores data only for a session, meaning that the data is stored until the browser (or tab) is closed.
+-Data is never transferred to the server.
+-Storage limit is larger than a cookie (at least 5MB).
+
+Cookie
+-Stores data that has to be sent back to the server with subsequent requests. Its expiration varies based on the type and the expiration duration can be set from either server-side or client-side (normally from server-side).
+-Cookies are primarily for server-side reading (can also be read on client-side), localStorage and sessionStorage can only be read on client-side.
+-Size must be less than 4KB.
+-Cookies can be made secure by setting the httpOnly flag as true for that cookie. This prevents client-side access to that cookie.
+
+Q2. What is the significance of, and reason for, wrapping the entire content of a JavaScript source file in a function block?
+A2. This technique creates a closure around the entire contents of the file which creates a private namespace and thereby helps avoid potential name clashes between different JavaScript modules and libraries. 
+Uses
+-To avoid polluting the global scope.
+-To avoid overriding already existing variables.
+
+Q3. What will the code below output? Explain your answer.
+console.log(0.1 + 0.2);
+console.log(0.1 + 0.2 == 0.3);
+A3.
+console.log(0.1 + 0.2); 
+0.30000000000000004 
+
+console.log(0.1 + 0.2 == 0.3);
+false Reason: JavaScript stores data in binary format. They dont work always the same way how fraction works or decimal works. Ex: 0.1 in decimal is represented by 0.0001100... . Hence the addition will give diffrent value.
+
+Q4. Write a sum method which will work properly when invoked using either syntax below.
+console.log(sum(2,3));   // Outputs 5
+console.log(sum(2)(3));  // Outputs 5
+A4.
+
+function sum(a,b){
+  let result = function (b){return a+b;};
+  if(typeof b =='undefined'){
+      return result;
+  }else{
+      return result(b);
+  }
+}
+
+sum(2)(3) // 5
+sum(2,3) // 5
+
+Q5. What is the output of the following code?
+
+var length = 10;
+
+function fn()  {
+  console.log(this.length);
+}
+
+var obj = {
+  length: 5,
+  method: function(fn) {
+    fn();
+    arguments[0]();
+  }
+};
+obj.method(fn, 1);
+
+A5. 
+10
+2
